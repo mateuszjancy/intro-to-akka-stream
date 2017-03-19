@@ -1,246 +1,276 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1504.81">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Courier; color: #000000; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Courier; color: #000000; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-    span.Apple-tab-span {white-space:pre}
-  </style>
+  <title>Title</title>
+  <meta charset="utf-8">
+  <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+        body { font-family: 'Droid Serif'; }
+        h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        }
+        .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Title&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="utf-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body { font-family: 'Droid Serif'; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h1, h2, h3 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-family: 'Yanone Kaffeesatz';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>font-weight: normal;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;textarea id="source"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;pre&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">     </span>_<span class="Apple-converted-space">    </span>_<span class="Apple-converted-space">    </span>_ <span class="Apple-converted-space">              </span>_ <span class="Apple-converted-space">                               </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/ \<span class="Apple-converted-space">  </span>| | _| | ____ _ <span class="Apple-converted-space">  </span>___| |_ _ __ ___<span class="Apple-converted-space">  </span>__ _ _ __ ___<span class="Apple-converted-space">  </span>___<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>/ _ \ | |/ / |/ / _` | / __| __| '__/ _ \/ _` | '_ ` _ \/ __|</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>/ ___ \| <span class="Apple-converted-space">  </span>&lt;| <span class="Apple-converted-space">  </span>&lt; (_| |_\__ \ |_| | |<span class="Apple-converted-space">  </span>__/ (_| | | | | | \__ \</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>/_/ <span class="Apple-converted-space">  </span>\_\_|\_\_|\_\__,_(_)___/\__|_|<span class="Apple-converted-space">  </span>\___|\__,_|_| |_| |_|___/</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">                                                                </span></span></p>
-<p class="p1"><span class="s1">&lt;/pre&gt;</span></p>
-<p class="p1"><span class="s1">## Quick Start</span></p>
-<p class="p1"><span class="s1">Akka Streams following the concept from RXScala but with different naming convention and with more complete and ready to use implementation and ecosystem.</span></p>
-<p class="p1"><span class="s1">* Building blocks: Source, Flow, Sink, Graph</span></p>
-<p class="p1"><span class="s1">* Additional features: Back-pressure, Failure, Error handling...</span></p>
-<p class="p1"><span class="s1">* Akka HTTP integration (Client and Server)</span></p>
-<p class="p1"><span class="s1">* Building block are immutable and can be shared.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Flow reusable pieces</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">implicit val system = ActorSystem("QuickStart")</span></p>
-<p class="p1"><span class="s1">implicit val materializer = ActorMaterializer()</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* Streams are built **on top of akka** and need to have **actor system**.</span></p>
-<p class="p1"><span class="s1">* In order to **run any stream** akka.stream need to **materialize some number of actors**</span></p>
-<p class="p1"><span class="s1">* Api from time to time need to have **materializer** in **implicit** scope.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Flow reusable pieces</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">val source: Source[Int, NotUsed] =</span></p>
-<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>Source(1 to 100)</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* Responsible for emitting values for future processing.</span></p>
-<p class="p1"><span class="s1">* Is inactive after declared.</span></p>
-<p class="p1"><span class="s1">* In order to get those numbers out we have to run it.</span></p>
-<p class="p1"><span class="s1">* Can be built from **future**, **iterable**... and many more.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Flow reusable pieces</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">val flow: Flow[Int, Int, NotUsed] =</span></p>
-<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>Flow[Int].map(_ * 2)</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* Basic building block.</span></p>
-<p class="p1"><span class="s1">* Can aggregate map, filter... operation in named variable.</span></p>
-<p class="p1"><span class="s1">* Easy to reuse.</span></p>
-<p class="p1"><span class="s1">* Can be seen as a part of service layer.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Flow reusable pieces</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">val sink: Sink[Int, Future[Int]] =</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Sink.fold[Int, Int](0)(_ + _)</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* Represents end of stream.</span></p>
-<p class="p1"><span class="s1">* Can represent some side effects.</span></p>
-<p class="p1"><span class="s1">* There is plenty of already implemented sinks. Like **Sink.ignore**, **Sink.last**...</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Flow reusable pieces</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">val runnableGraph: RunnableGraph[Future[Int]] =</span></p>
-<p class="p1"><span class="s1"><span class="Apple-tab-span">	</span>source.via(flow).toMat(sink)(Keep.right)</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">val result: Future[Int] = runnableGraph.run()</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* We have many options to run stream. It allows us to design our flow with respect to out application architecture.</span></p>
-<p class="p1"><span class="s1">* Not always we need to care about stream value.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Source and Flow use case.</span></p>
-<p class="p1"><span class="s1">app.flashcard.repository.FlashcardRepository</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Akka.http integration use case.</span></p>
-<p class="p1"><span class="s1">app.flashcard.route.FlashcardRoute</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Flow reusable pieces</span></p>
-<p class="p1"><span class="s1">&lt;pre&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>__<span class="Apple-converted-space">    </span>__<span class="Apple-converted-space">            </span>_<span class="Apple-converted-space">                              </span>___<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1">/ / /\ \ \__ _ _ __ | |_ <span class="Apple-converted-space">  </span>_ __ ___ <span class="Apple-converted-space">  </span>___<span class="Apple-converted-space">  </span>_ __ ___/ _ \</span></p>
-<p class="p1"><span class="s1">\ \/<span class="Apple-converted-space">  </span>\/ / _` | '_ \| __| | '_ ` _ \ / _ \| '__/ _ \// /</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>\<span class="Apple-converted-space">  </span>/\<span class="Apple-converted-space">  </span>/ (_| | | | | |_<span class="Apple-converted-space">  </span>| | | | | | (_) | | |<span class="Apple-converted-space">  </span>__/ \/<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>\/<span class="Apple-converted-space">  </span>\/ \__,_|_| |_|\__| |_| |_| |_|\___/|_|<span class="Apple-converted-space">  </span>\___| ()<span class="Apple-converted-space">                                                   </span></span></p>
-<p class="p1"><span class="s1">&lt;/pre&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-flows-and-basics.html)</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Design Principles behind Akka Streams</span></p>
-<p class="p1"><span class="s1">* No dead letter office</span></p>
-<p class="p1"><span class="s1">* Oriented to compassable components</span></p>
-<p class="p1"><span class="s1">* Interoperation with other Reactive Streams implementations</span></p>
-<p class="p1"><span class="s1">* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## The difference between Error and Failure</span></p>
-<p class="p1"><span class="s1">* Error is accessible within the stream as a normal data element.</span></p>
-<p class="p1"><span class="s1">* Failure means that the stream itself has failed and is collapsing</span></p>
-<p class="p1"><span class="s1">* Good idea is to handle business errors by Either instead playing with akka.stream stuff.</span></p>
-<p class="p1"><span class="s1">* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html#The_difference_between_Error_and_Failure)</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Stream ordering</span></p>
-<p class="p1"><span class="s1">_In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Demo</span></p>
-<p class="p1"><span class="s1">&lt;pre&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>______ <span class="Apple-converted-space">  </span>_______<span class="Apple-converted-space">  </span>__ <span class="Apple-converted-space">  </span>__<span class="Apple-converted-space">  </span>_______<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1">|<span class="Apple-converted-space">      </span>| | <span class="Apple-converted-space">      </span>||<span class="Apple-converted-space">  </span>|_|<span class="Apple-converted-space">  </span>|| <span class="Apple-converted-space">      </span>|</span></p>
-<p class="p1"><span class="s1">|<span class="Apple-converted-space">  </span>_<span class="Apple-converted-space">    </span>||<span class="Apple-converted-space">    </span>___|| <span class="Apple-converted-space">      </span>|| <span class="Apple-converted-space">  </span>_ <span class="Apple-converted-space">  </span>|</span></p>
-<p class="p1"><span class="s1">| | | <span class="Apple-converted-space">  </span>|| <span class="Apple-converted-space">  </span>|___ | <span class="Apple-converted-space">      </span>||<span class="Apple-converted-space">  </span>| |<span class="Apple-converted-space">  </span>|</span></p>
-<p class="p1"><span class="s1">| |_| <span class="Apple-converted-space">  </span>||<span class="Apple-converted-space">    </span>___|| <span class="Apple-converted-space">      </span>||<span class="Apple-converted-space">  </span>|_|<span class="Apple-converted-space">  </span>|</span></p>
-<p class="p1"><span class="s1">| <span class="Apple-converted-space">      </span>|| <span class="Apple-converted-space">  </span>|___ | ||_|| || <span class="Apple-converted-space">      </span>|</span></p>
-<p class="p1"><span class="s1">|______| |_______||_| <span class="Apple-converted-space">  </span>|_||_______|</span></p>
-<p class="p1"><span class="s1">&lt;/pre&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graps common boilerplate</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">xxx.fromGraph(GraphDSL.create() { implicit builder =&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>import GraphDSL.Implicits._</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span>...</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>xxxShape</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>})</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* **builder** allows us to build our funcy graphs.</span></p>
-<p class="p1"><span class="s1">* **GraphDSL.Implicits._** provides nice DSL.</span></p>
-<p class="p1"><span class="s1">* xxx.fromGraph because graph can by lifted into **Sources** and **Flows**.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graph with ClosedShape</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] =&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>import GraphDSL.Implicits._</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>val in = Source(1 to 10)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>val out = Sink.ignore</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>val bcast = builder.add(Broadcast[Int](2))</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>val merge = builder.add(Merge[Int](2))</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>val f1, f2, f3, f4 = Flow[Int].map(_ + 10)</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>in ~&gt; f1 ~&gt; bcast ~&gt; f2 ~&gt; merge ~&gt; f3 ~&gt; out</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>bcast ~&gt; f4 ~&gt; merge</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>ClosedShape</span></p>
-<p class="p1"><span class="s1">})</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p1"><span class="s1">* End to end stream which can be starded.</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graph with SourceShape</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">Source.fromGraph(GraphDSL.create() { implicit b =&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>import GraphDSL.Implicits._</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>...</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>SourceShape(out)</span></p>
-<p class="p1"><span class="s1">})</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graph with FlowShape</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">Flow.fromGraph(GraphDSL.create() { implicit b =&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>import GraphDSL.Implicits._</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span>...</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span>FlowShape(in, out)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>})</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graph with FlowShape</span></p>
-<p class="p1"><span class="s1">```scala</span></p>
-<p class="p1"><span class="s1">Flow.fromGraph(GraphDSL.create() { implicit b =&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>import GraphDSL.Implicits._</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span>...</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span>FlowShape(in, out)</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>})</span></p>
-<p class="p1"><span class="s1">```</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graph simplified API</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">There is [simplified API](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-graphs.html#Combining_Sources_and_Sinks_with_simplified_API) which is nice and easy tool for combining<span class="Apple-converted-space"> </span></span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Demo</span></p>
-<p class="p1"><span class="s1">&lt;pre&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space"> </span>______ <span class="Apple-converted-space">  </span>_______<span class="Apple-converted-space">  </span>__ <span class="Apple-converted-space">  </span>__<span class="Apple-converted-space">  </span>_______<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1">|<span class="Apple-converted-space">      </span>| | <span class="Apple-converted-space">      </span>||<span class="Apple-converted-space">  </span>|_|<span class="Apple-converted-space">  </span>|| <span class="Apple-converted-space">      </span>|</span></p>
-<p class="p1"><span class="s1">|<span class="Apple-converted-space">  </span>_<span class="Apple-converted-space">    </span>||<span class="Apple-converted-space">    </span>___|| <span class="Apple-converted-space">      </span>|| <span class="Apple-converted-space">  </span>_ <span class="Apple-converted-space">  </span>|</span></p>
-<p class="p1"><span class="s1">| | | <span class="Apple-converted-space">  </span>|| <span class="Apple-converted-space">  </span>|___ | <span class="Apple-converted-space">      </span>||<span class="Apple-converted-space">  </span>| |<span class="Apple-converted-space">  </span>|</span></p>
-<p class="p1"><span class="s1">| |_| <span class="Apple-converted-space">  </span>||<span class="Apple-converted-space">    </span>___|| <span class="Apple-converted-space">      </span>||<span class="Apple-converted-space">  </span>|_|<span class="Apple-converted-space">  </span>|</span></p>
-<p class="p1"><span class="s1">| <span class="Apple-converted-space">      </span>|| <span class="Apple-converted-space">  </span>|___ | ||_|| || <span class="Apple-converted-space">      </span>|</span></p>
-<p class="p1"><span class="s1">|______| |_______||_| <span class="Apple-converted-space">  </span>|_||_______|</span></p>
-<p class="p1"><span class="s1">&lt;/pre&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Graph example</span></p>
-<p class="p1"><span class="s1">app.flashcard.service.UserService</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Scheduled processing</span></p>
-<p class="p1"><span class="s1">app.flashcard.service.UserService</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Remarks</span></p>
-<p class="p1"><span class="s1">* Super as a alternative for any scheduled activity</span></p>
-<p class="p1"><span class="s1">* Nice compassable blocks</span></p>
-<p class="p1"><span class="s1">* Easy to test</span></p>
-<p class="p1"><span class="s1">* Clear processing blocks</span></p>
-<p class="p1"><span class="s1">* In my opinion its wrong to say that most of problems can be rewritten with futures and for comprehension</span></p>
-<p class="p1"><span class="s1">* I general easy to use</span></p>
-<p class="p1"><span class="s1">* Nice integrations with akka.http</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">## Remarks</span></p>
-<p class="p1"><span class="s1">* Redundant complexity in some cases</span></p>
-<p class="p1"><span class="s1">* Hard to design application with clear separation of logic and framework (as it was in spring...)</span></p>
-<p class="p1"><span class="s1">* Graph API can be useful but in very complex processing</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/textarea&gt;</span></p>
-<p class="p1"><span class="s1">&lt;script src="https://remarkjs.com/downloads/remark-latest.min.js"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>var slideshow = remark.create();</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+<textarea id="source"><pre>
+<pre>
+     _    _    _               _
+    / \  | | _| | ____ _   ___| |_ _ __ ___  __ _ _ __ ___  ___
+   / _ \ | |/ / |/ / _` | / __| __| '__/ _ \/ _` | '_ ` _ \/ __|
+  / ___ \|   <|   < (_| |_\__ \ |_| | |  __/ (_| | | | | | \__ \
+ /_/   \_\_|\_\_|\_\__,_(_)___/\__|_|  \___|\__,_|_| |_| |_|___/
+
+</pre>
+
+---
+
+## Quick Start
+Akka Streams following the concept from RXScala but with different naming convention and with more complete and ready to use implementation and ecosystem.
+* Building blocks: Source, Flow, Sink, Graph
+* Additional features: Back-pressure, Failure, Error handling...
+* Akka HTTP integration (Client and Server)
+* Building block are immutable and can be shared.
+
+---
+
+## Flow reusable pieces
+```scala
+implicit val system = ActorSystem("QuickStart")
+implicit val materializer = ActorMaterializer()
+```
+* Streams are built **on top of akka** and need to have **actor system**.
+* In order to **run any stream** akka.stream need to **materialize some number of actors**
+* Api from time to time need to have **materializer** in **implicit** scope.
+
+---
+
+## Flow reusable pieces
+```scala
+val source: Source[Int, NotUsed] =
+	Source(1 to 100)
+```
+* Responsible for emitting values for future processing.
+* Is inactive after declared.
+* In order to get those numbers out we have to run it.
+* Can be built from **future**, **iterable**... and many more.
+
+---
+
+## Flow reusable pieces
+```scala
+val flow: Flow[Int, Int, NotUsed] =
+	Flow[Int].map(_ * 2)
+```
+* Basic building block.
+* Can aggregate map, filter... operation in named variable.
+* Easy to reuse.
+* Can be seen as a part of service layer.
+
+---
+
+## Flow reusable pieces
+```scala
+val sink: Sink[Int, Future[Int]] =
+    Sink.fold[Int, Int](0)(_ + _)
+```
+* Represents end of stream.
+* Can represent some side effects.
+* There is plenty of already implemented sinks. Like **Sink.ignore**, **Sink.last**...
+
+---
+
+## Flow reusable pieces
+```scala
+val runnableGraph: RunnableGraph[Future[Int]] =
+	source.via(flow).toMat(sink)(Keep.right)
+
+val result: Future[Int] = runnableGraph.run()
+```
+* We have many options to run stream. It allows us to design our flow with respect to out application architecture.
+* Not always we need to care about stream value.
+
+---
+
+## Source and Flow use case.
+app.flashcard.repository.FlashcardRepository
+
+---
+
+## Akka.http integration use case.
+app.flashcard.route.FlashcardRoute
+
+---
+
+## Flow reusable pieces
+<pre>
+ __    __            _                              ___
+/ / /\ \ \__ _ _ __ | |_   _ __ ___   ___  _ __ ___/ _ \
+\ \/  \/ / _` | '_ \| __| | '_ ` _ \ / _ \| '__/ _ \// /
+ \  /\  / (_| | | | | |_  | | | | | | (_) | | |  __/ \/
+  \/  \/ \__,_|_| |_|\__| |_| |_| |_|\___/|_|  \___| ()
+</pre>
+
+Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-flows-and-basics.html)
+
+---
+
+## Design Principles behind Akka Streams
+* No dead letter office
+* Oriented to compassable components
+* Interoperation with other Reactive Streams implementations
+* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
+
+---
+
+## The difference between Error and Failure
+* Error is accessible within the stream as a normal data element.
+* Failure means that the stream itself has failed and is collapsing
+* Good idea is to handle business errors by Either instead playing with akka.stream stuff.
+* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html#The_difference_between_Error_and_Failure)
+
+---
+
+## Stream ordering
+_In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)
+
+---
+
+## Demo
+<pre>
+ ______   _______  __   __  _______
+|      | |       ||  |_|  ||       |
+|  _    ||    ___||       ||   _   |
+| | |   ||   |___ |       ||  | |  |
+| |_|   ||    ___||       ||  |_|  |
+|       ||   |___ | ||_|| ||       |
+|______| |_______||_|   |_||_______|
+</pre>
+
+---
+
+## Graps common boilerplate
+```scala
+xxx.fromGraph(GraphDSL.create() { implicit builder =>
+    import GraphDSL.Implicits._
+ 	...
+    xxxShape
+  })
+```
+* **builder** allows us to build our funcy graphs.
+* **GraphDSL.Implicits._** provides nice DSL.
+* xxx.fromGraph because graph can by lifted into **Sources** and **Flows**.
+
+---
+
+## Graph with ClosedShape
+```scala
+val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] =>
+  import GraphDSL.Implicits._
+  val in = Source(1 to 10)
+  val out = Sink.ignore
+
+  val bcast = builder.add(Broadcast[Int](2))
+  val merge = builder.add(Merge[Int](2))
+
+  val f1, f2, f3, f4 = Flow[Int].map(_ + 10)
+
+  in ~> f1 ~> bcast ~> f2 ~> merge ~> f3 ~> out
+  bcast ~> f4 ~> merge
+  ClosedShape
+})
+```
+* End to end stream which can be starded.
+
+---
+
+## Graph with SourceShape
+```scala
+Source.fromGraph(GraphDSL.create() { implicit b =>
+  import GraphDSL.Implicits._
+  ...
+  SourceShape(out)
+})
+```
+
+---
+
+## Graph with FlowShape
+```scala
+Flow.fromGraph(GraphDSL.create() { implicit b =>
+    import GraphDSL.Implicits._
+ 	...
+ 	FlowShape(in, out)
+  })
+```
+
+---
+
+## Graph with FlowShape
+```scala
+Flow.fromGraph(GraphDSL.create() { implicit b =>
+    import GraphDSL.Implicits._
+ 	...
+ 	FlowShape(in, out)
+  })
+```
+
+---
+
+## Graph simplified API
+
+There is [simplified API](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-graphs.html#Combining_Sources_and_Sinks_with_simplified_API) which is nice and easy tool for combining
+
+---
+
+## Demo
+<pre>
+ ______   _______  __   __  _______
+|      | |       ||  |_|  ||       |
+|  _    ||    ___||       ||   _   |
+| | |   ||   |___ |       ||  | |  |
+| |_|   ||    ___||       ||  |_|  |
+|       ||   |___ | ||_|| ||       |
+|______| |_______||_|   |_||_______|
+</pre>
+
+---
+
+## Graph example
+app.flashcard.service.UserService
+
+---
+
+## Scheduled processing
+app.flashcard.service.UserService
+
+---
+
+## Remarks
+* Super as a alternative for any scheduled activity
+* Nice compassable blocks
+* Easy to test
+* Clear processing blocks
+* In my opinion its wrong to say that most of problems can be rewritten with futures and for comprehension
+* I general easy to use
+* Nice integrations with akka.http
+
+---
+
+## Remarks
+* Redundant complexity in some cases
+* Hard to design application with clear separation of logic and framework (as it was in spring...)
+* Graph API can be useful but in very complex processing
+
+</textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script>
+      var slideshow = remark.create();
+
+</script>
 </body>
 </html>
