@@ -1,7 +1,15 @@
+<pre>
+     _    _    _               _                                
+    / \  | | _| | ____ _   ___| |_ _ __ ___  __ _ _ __ ___  ___ 
+   / _ \ | |/ / |/ / _` | / __| __| '__/ _ \/ _` | '_ ` _ \/ __|
+  / ___ \|   <|   < (_| |_\__ \ |_| | |  __/ (_| | | | | | \__ \
+ /_/   \_\_|\_\_|\_\__,_(_)___/\__|_|  \___|\__,_|_| |_| |_|___/
+                                                                
+</pre>
 ## Quick Start
-Akka Streams following the concept from RXScala but with different namming convention and with more complete and ready to use implementation and ecosystem.
+Akka Streams following the concept from RXScala but with different naming convention and with more complete and ready to use implementation and ecosystem.
 * Building blocks: Source, Flow, Sink, Graph
-* Additional features: Backpressure, Failure, Error handling...
+* Additional features: Back-pressure, Failure, Error handling...
 * Akka HTTP integration (Client and Server)
 * Building block are immutable and can be shared.
 
@@ -19,7 +27,7 @@ implicit val materializer = ActorMaterializer()
 val source: Source[Int, NotUsed] =
 	Source(1 to 100)
 ```
-* Responsible for emiting values for future processing.
+* Responsible for emitting values for future processing.
 * Is inactive after declared.
 * In order to get those numbers out we have to run it.
 * Can be built from **future**, **iterable**... and many more.
@@ -30,9 +38,9 @@ val flow: Flow[Int, Int, NotUsed] =
 	Flow[Int].map(_ * 2)
 ```
 * Basic building block.
-* Can aggregate map, filter... operation in nammed variable.
+* Can aggregate map, filter... operation in named variable.
 * Easy to reuse.
-* Can be sean as a part of service layer.
+* Can be seen as a part of service layer.
 
 ## Flow reusable pieces
 ```scala
@@ -41,7 +49,7 @@ val sink: Sink[Int, Future[Int]] =
 ```
 * Represents end of stream.
 * Can represent some side effects.
-* There is planty of allready implemented sinks. Like **Sink.ignore**, **Sink.last**...
+* There is plenty of already implemented sinks. Like **Sink.ignore**, **Sink.last**...
 
 ## Flow reusable pieces
 ```scala
@@ -51,7 +59,7 @@ val runnableGraph: RunnableGraph[Future[Int]] =
 val result: Future[Int] = runnableGraph.run()
 ```
 * We have many options to run stream. It allows us to design our flow with respect to out application architecture.
-* Not allways we need to care about stream value.
+* Not always we need to care about stream value.
 
 ## Source and Flow use case.
 app.flashcard.repository.FlashcardRepository
@@ -72,7 +80,7 @@ Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/s
 
 ## Design Principles behind Akka Streams
 * No dead letter office
-* Compositionality
+* Oriented to compassable components
 * Interoperation with other Reactive Streams implementations
 * More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
 
@@ -86,6 +94,15 @@ Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/s
 _In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)
 
 ## Demo
+<pre>
+ ______   _______  __   __  _______ 
+|      | |       ||  |_|  ||       |
+|  _    ||    ___||       ||   _   |
+| | |   ||   |___ |       ||  | |  |
+| |_|   ||    ___||       ||  |_|  |
+|       ||   |___ | ||_|| ||       |
+|______| |_______||_|   |_||_______|
+</pre>
 
 ## Graps common boilerplate
 ```scala
@@ -116,7 +133,7 @@ val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.B
   ClosedShape
 })
 ```
-* End to end stream which can be runned.
+* End to end stream which can be starded.
 
 ## Graph with SourceShape
 ```scala
@@ -149,26 +166,37 @@ Flow.fromGraph(GraphDSL.create() { implicit b =>
 
 There is [simplified API](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-graphs.html#Combining_Sources_and_Sinks_with_simplified_API) which is nice and easy tool for combining 
 
+## Demo
+<pre>
+ ______   _______  __   __  _______ 
+|      | |       ||  |_|  ||       |
+|  _    ||    ___||       ||   _   |
+| | |   ||   |___ |       ||  | |  |
+| |_|   ||    ___||       ||  |_|  |
+|       ||   |___ | ||_|| ||       |
+|______| |_______||_|   |_||_______|
+</pre>
+
 ## Graph example
 app.flashcard.service.UserService
 
 
-## Sheduled processing
+## Scheduled processing
 app.flashcard.service.UserService
 
 ## Remarks
-* Super as a alternative for any sheduled activity
-* Nice composable blocks
+* Super as a alternative for any scheduled activity
+* Nice compassable blocks
 * Easy to test
 * Clear processing blocks
-* In my opinon its wrong to say that most of problems can be revritten witg futures and for comprehension
+* In my opinion its wrong to say that most of problems can be rewritten with futures and for comprehension
 * I general easy to use
 * Nice integrations with akka.http
 
 ## Remarks
-* Redundand compexity in sime cases
+* Redundant complexity in some cases
 * Hard to design application with clear separation of logic and framework (as it was in spring...)
-* Graph API can be usefull but in very complex prcoessing
+* Graph API can be useful but in very complex processing
 
 
 
