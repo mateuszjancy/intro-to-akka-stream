@@ -1,8 +1,10 @@
 package app.flashcard.route
 
+import akka.NotUsed
 import akka.http.scaladsl.common.{EntityStreamingSupport, JsonEntityStreamingSupport}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
+import akka.stream.scaladsl.Source
 import app.flashcard.repository.FlashcardRepository
 import app.flashcard.repository.FlashcardRepository.Flashcard
 import app.flashcard.route.FlashcardRoute.NewFlashcard
@@ -29,7 +31,7 @@ class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJs
     */
   def create = post {
     entity(asSourceOf[NewFlashcard]) { newFlashcard =>
-      val response = newFlashcard.map(_.toFlashcard).via(flashcardRepository.add)
+      val response: Source[Flashcard, NotUsed] = newFlashcard.map(_.toFlashcard).via(flashcardRepository.add)
       complete(response)
     }
   }
@@ -40,7 +42,8 @@ class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJs
     * Sent all items to client.
     */
   def find = get {
-    complete(flashcardRepository.find)
+    val response: Source[Flashcard, NotUsed] = flashcardRepository.find
+    complete(response)
   }
 
   def routes = path("flashcard")(find ~ create)

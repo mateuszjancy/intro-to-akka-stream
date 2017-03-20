@@ -1,8 +1,10 @@
 package app.flashcard.route
 
+import akka.NotUsed
 import akka.http.scaladsl.common.{EntityStreamingSupport, JsonEntityStreamingSupport}
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives.{complete, _}
+import akka.stream.scaladsl.Source
 import app.flashcard.repository.FlashcardRepository
 import app.flashcard.route.QuizRoute._
 import spray.json.DefaultJsonProtocol
@@ -19,7 +21,7 @@ class QuizRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonPro
     */
   def question = path("question") {
     get {
-      val response = flashcardRepository.find.map(flashcard => Question(flashcard.word))
+      val response: Source[Question, NotUsed] = flashcardRepository.find.map(flashcard => Question(flashcard.word))
       complete(response)
     }
   }
@@ -33,7 +35,7 @@ class QuizRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonPro
     get {
       parameter('word) { word =>
         parameter('translation) { translation =>
-          val response = flashcardRepository
+          val response: Source[Answer, NotUsed] = flashcardRepository
             .get(word)
             .map(flashcard => Answer(flashcard.translation.equalsIgnoreCase(translation)))
 
