@@ -40,6 +40,36 @@
 * Graph, Exercise
 
 ---
+## Plan
+
+We are going to:
+* Learn basics of **flows**.
+* With this knowledge we will implement application repositories and routes.
+* Caffe break.
+* Learn basics of **graphs**.
+* Implement simple graph and sheduled processing.
+
+---
+
+## Application curls
+
+* Add flashcard
+```
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '[{"word": "czesc", "tranlation": "hi"}, {"word": "pa", "tranlation": "bye"}]' "http://localhost:8090/flashcard"
+```
+* Get flashcard
+```
+curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/flashcard"
+```
+* Get questions
+```
+curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/quiz/question"
+```
+* Answer
+```
+curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/quiz/answer?word=czesc&translation=hi"
+```
+---
 ## Quick Start
 Akka Streams following the concept from RXScala but with different naming convention and with more complete and ready to use implementation and ecosystem.
 * Building blocks: Source, Flow, Sink, Graph
