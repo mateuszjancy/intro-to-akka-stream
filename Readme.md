@@ -4,8 +4,12 @@
    / _ \ | |/ / |/ / _` | / __| __| '__/ _ \/ _` | '_ ` _ \/ __|
   / ___ \|   <|   < (_| |_\__ \ |_| | |  __/ (_| | | | | | \__ \
  /_/   \_\_|\_\_|\_\__,_(_)___/\__|_|  \___|\__,_|_| |_| |_|___/
-                                                                
+                                                        v 2.4.16               
 </pre>
+
+* Quick Start
+* Flow reusable pieces
+* Exercise 
 
 ---
 
@@ -15,6 +19,23 @@ Akka Streams following the concept from RXScala but with different naming conven
 * Additional features: Back-pressure, Failure, Error handling...
 * Akka HTTP integration (Client and Server)
 * Building block are immutable and can be shared.
+
+---
+
+## Flow
+<pre>
+ ______   __         ______     __     __    
+/\  ___\ /\ \       /\  __ \   /\ \  _ \ \   
+\ \  __\ \ \ \____  \ \ \/\ \  \ \ \/ ".\ \  
+ \ \_\    \ \_____\  \ \_____\  \ \__/".~\_\ 
+  \/_/     \/_____/   \/_____/   \/_/   \/_/ 
+                                             
+</pre>
+* Fluent interface.
+* Looks like collections API.
+* Useful for most use cases.
+* Base abstractions.
+* Easy to use.
 
 ---
 
@@ -76,33 +97,53 @@ val result: Future[Int] = runnableGraph.run()
 
 ---
 
-## Source and Flow use case.
-app.flashcard.repository.FlashcardRepository
-
----
-
-## Akka.http integration use case.
-app.flashcard.route.FlashcardRoute
-
----
-
-## Flow reusable pieces
+## Mob programming
 <pre>
- __    __            _                              ___ 
-/ / /\ \ \__ _ _ __ | |_   _ __ ___   ___  _ __ ___/ _ \
-\ \/  \/ / _` | '_ \| __| | '_ ` _ \ / _ \| '__/ _ \// /
- \  /\  / (_| | | | | |_  | | | | | | (_) | | |  __/ \/ 
-  \/  \/ \__,_|_| |_|\__| |_| |_| |_|\___/|_|  \___| ()                                                   
+  __  __       _        
+ |  \/  |     | |       
+ | \  / | ___ | |__     
+ | |\/| |/ _ \| '_ \    
+ | |  | | (_) | |_) |   
+ |_|__|_|\___/|_.__/_ _ 
+ | '_ \| '__/ _ \ / _` |
+ | |_) | | | (_) | (_| |
+ | .__/|_|  \___/ \__, |
+ | |               __/ |
+ |_|              |___/ 
 </pre>
 
-Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-flows-and-basics.html)
+---
+
+## Source and Flow exercise.
+* How to integrate async service (in example async DB client) with streams 
+* Example in: app.flashcard.repository.FlashcardRepository
+
+---
+
+## Source and Flow exercise.
+* Is it ok that streams are visible in Repository layer?
+* What if I need to use Repository.findAll in two places in one as a Source and in another one as a Flow? 
+
+---
+
+## Akka.http integration exercise.
+* How to interpret entity from request body as a source
+* How to consume stream
+* Example in: app.flashcard.route.FlashcardRoute
+* ...
+
+---
+
+## Akka.http integration exercise.
+* When go with Futures and when with Streams?
+* ...
 
 ---
 
 ## Design Principles behind Akka Streams
 * No dead letter office
-* Oriented to compassable components
-* Interoperation with other Reactive Streams implementations
+* Oriented to comparable components
+* Interpretation with other Reactive Streams implementations
 * More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
 
 ---
@@ -120,20 +161,34 @@ _In Akka Streams almost all computation stages preserve input order of elements.
 
 ---
 
-## Demo
+## Flow reusable pieces
 <pre>
- ______   _______  __   __  _______ 
-|      | |       ||  |_|  ||       |
-|  _    ||    ___||       ||   _   |
-| | |   ||   |___ |       ||  | |  |
-| |_|   ||    ___||       ||  |_|  |
-|       ||   |___ | ||_|| ||       |
-|______| |_______||_|   |_||_______|
+ __    __            _                              ___ 
+/ / /\ \ \__ _ _ __ | |_   _ __ ___   ___  _ __ ___/ _ \
+\ \/  \/ / _` | '_ \| __| | '_ ` _ \ / _ \| '__/ _ \// /
+ \  /\  / (_| | | | | |_  | | | | | | (_) | | |  __/ \/ 
+  \/  \/ \__,_|_| |_|\__| |_| |_| |_|\___/|_|  \___| ()                                                   
 </pre>
+
+Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/stream/stream-flows-and-basics.html)
 
 ---
 
-## Graps common boilerplate
+## Graphs
+<pre>
+   ___                 _     
+  / _ \_ __ __ _ _ __ | |__  
+ / /_\/ '__/ _` | '_ \| '_ \ 
+/ /_\\| | | (_| | |_) | | | |
+\____/|_|  \__,_| .__/|_| |_|
+                |_|          
+</pre>
+* Designed for more complex processing requirements.
+* Look more complex at first time.
+
+---
+
+## Graphs common boilerplate
 ```scala
 xxx.fromGraph(GraphDSL.create() { implicit builder =>
     import GraphDSL.Implicits._
@@ -141,7 +196,7 @@ xxx.fromGraph(GraphDSL.create() { implicit builder =>
     xxxShape
   })
 ```
-* **builder** allows us to build our funcy graphs.
+* **builder** allows us to build our fancy graphs.
 * **GraphDSL.Implicits._** provides nice DSL.
 * xxx.fromGraph because graph can by lifted into **Sources** and **Flows**.
 
@@ -164,7 +219,7 @@ val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.B
   ClosedShape
 })
 ```
-* End to end stream which can be starded.
+* End to end stream which can be started.
 
 ---
 
@@ -209,24 +264,51 @@ There is [simplified API](http://doc.akka.io/docs/akka/2.4.17/scala/stream/strea
 
 ## Demo
 <pre>
- ______   _______  __   __  _______ 
-|      | |       ||  |_|  ||       |
-|  _    ||    ___||       ||   _   |
-| | |   ||   |___ |       ||  | |  |
-| |_|   ||    ___||       ||  |_|  |
-|       ||   |___ | ||_|| ||       |
-|______| |_______||_|   |_||_______|
+  __  __       _        
+ |  \/  |     | |       
+ | \  / | ___ | |__     
+ | |\/| |/ _ \| '_ \    
+ | |  | | (_) | |_) |   
+ |_|__|_|\___/|_.__/_ _ 
+ | '_ \| '__/ _ \ / _` |
+ | |_) | | | (_) | (_| |
+ | .__/|_|  \___/ \__, |
+ | |               __/ |
+ |_|              |___/ 
 </pre>
 
 ---
 
 ## Graph example
-app.flashcard.service.UserService
+* How to implement simple graphs
+* Example in: app.flashcard.service.UserService
+
+---
+
+## Graph example
+* Nice way of representing abstraction.
+* Simple to use.
+* Is it easy to read?
+* Is boilerplate code painful?
+* How to rewrite from for expression.
+```scala
+ for {
+   a <- callA
+   b <- callB(a)
+   c <- callC(a)
+ } yield (b, c)
+```
+___
+
+## Scheduled processing
+How to approach scheduling in akka.streams. 
+Example in: app.flashcard.service.UserService
 
 ---
 
 ## Scheduled processing
-app.flashcard.service.UserService
+* Super simple.
+* Very expressive.
 
 ---
 
@@ -245,3 +327,15 @@ app.flashcard.service.UserService
 * Redundant complexity in some cases
 * Hard to design application with clear separation of logic and framework (as it was in spring...)
 * Graph API can be useful but in very complex processing
+
+---
+
+<pre>
+  _______ _                 _        
+ |__   __| |               | |       
+    | |  | |__   __ _ _ __ | | _____ 
+    | |  | '_ \ / _` | '_ \| |/ / __|
+    | |  | | | | (_| | | | |   <\__ \
+    |_|  |_| |_|\__,_|_| |_|_|\_\___/
+                              Mateusz
+</pre>

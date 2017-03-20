@@ -2,11 +2,16 @@ package app.flashcard.repository
 
 import scala.concurrent.Future
 
+/**
+  * Async DB client example.
+  *
+  * @tparam T
+  */
 class DB[T] {
   private var db = Set.empty[T]
 
   def insert(el: T): Future[T] = Future.successful {
-    db = db + el;
+    db = db + el
     el
   }
 

@@ -12,6 +12,11 @@ class QuizRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonPro
   implicit val answerJson = jsonFormat1(Answer)
   implicit val jsonStreamingSupport: JsonEntityStreamingSupport = EntityStreamingSupport.json()
 
+  /**
+    * Find all flashcards and map them to Question DTO.
+    *
+    * @return
+    */
   def question = path("question") {
     get {
       val response = flashcardRepository.find.map(flashcard => Question(flashcard.word))
@@ -19,6 +24,11 @@ class QuizRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonPro
     }
   }
 
+  /**
+    * Find flashcard for given word and check if translation is "equalsIgnoreCase" to user translation. Send back Answer DTO.
+    *
+    * @return
+    */
   def answer = path("answer") {
     get {
       parameter('word) { word =>

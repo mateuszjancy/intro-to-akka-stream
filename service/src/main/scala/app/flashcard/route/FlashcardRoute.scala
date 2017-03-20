@@ -8,12 +8,25 @@ import app.flashcard.repository.FlashcardRepository.Flashcard
 import app.flashcard.route.FlashcardRoute.NewFlashcard
 import spray.json.DefaultJsonProtocol
 
+/**
+  * Implement trivial CRud.
+  *
+  * @param flashcardRepository
+  */
 class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonProtocol with SprayJsonSupport {
 
   private implicit val flashcardJson = jsonFormat2(Flashcard)
   private implicit val newFlashcardJson = jsonFormat2(NewFlashcard)
+
+  //enable JSON Streaming, ir needs to be in implicit scope
   private implicit val jsonStreamingSupport: JsonEntityStreamingSupport = EntityStreamingSupport.json()
 
+
+  /**
+    * Use asSourceOf in order to get entity as a stream. consume directive is can "consume" Source.
+    * Consume NewFlashcard entity, map it to Flashcard and use flashcardRepository in order to store it.
+    * Sent newly created entity to client.
+    */
   def create = post {
     entity(asSourceOf[NewFlashcard]) { newFlashcard =>
       val response = newFlashcard.map(_.toFlashcard).via(flashcardRepository.add)
@@ -21,6 +34,11 @@ class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJs
     }
   }
 
+
+  /**
+    * consume directive is can "consume" Source.
+    * Sent all items to client.
+    */
   def find = get {
     complete(flashcardRepository.find)
   }

@@ -15,6 +15,16 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
 
   private def charge: Flow[UUID, BigDecimal, NotUsed] = Flow[UUID].map { _ => BigDecimal(4) }
 
+  /**
+    * *
+    * ---> only language ---> mailService.template --->
+    * User as a input ---> only id ---------> charge -----------------> Mail as a output
+    * ------------------------------------------------>
+    * *
+    * Use Broadcast to split user data to three streams. map on Broadcast is allowed.
+    * Use ZipWith[MailTemplate, BigDecimal, User, Mail] to zip MailTemplate, BigDecimal, User to Mail, mailService.fillBody can be used.
+    */
+
   private def calculate: Flow[User, Mail, NotUsed] = Flow.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] =>
     import GraphDSL.Implicits._
 
@@ -31,6 +41,11 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
   })
 
 
+  /**
+    * Check Source.tick.
+    *
+    * @return
+    */
   def sendSummary = Source.tick(10 second, 30 seconds, ())
     .mapConcat(_ => userRepository.find)
     .via(calculate)
