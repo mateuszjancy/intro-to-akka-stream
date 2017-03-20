@@ -21,7 +21,7 @@ class QuizRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonPro
     */
   def question = path("question") {
     get {
-      val response: Source[Question, NotUsed] = flashcardRepository.find.map(flashcard => Question(flashcard.word))
+      val response: Source[Question, NotUsed] = ???
       complete(response)
     }
   }
@@ -35,10 +35,7 @@ class QuizRoute(flashcardRepository: FlashcardRepository) extends DefaultJsonPro
     get {
       parameter('word) { word =>
         parameter('translation) { translation =>
-          val response: Source[Answer, NotUsed] = flashcardRepository
-            .get(word)
-            .map(flashcard => Answer(flashcard.translation.equalsIgnoreCase(translation)))
-
+          val response: Source[Answer, NotUsed] = ???
           complete(response)
         }
       }

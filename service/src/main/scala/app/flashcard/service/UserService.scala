@@ -15,26 +15,25 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
 
   private def charge: Flow[UUID, BigDecimal, NotUsed] = Flow[UUID].map { _ => BigDecimal(4) }
 
+  //@formatter:off
   /**
-    * *
-    * ---> only language ---> mailService.template --->
-    * User as a input ---> only id ---------> charge -----------------> Mail as a output
-    * ------------------------------------------------>
-    * *
-    * Use Broadcast to split user data to three streams. map on Broadcast is allowed.
-    * Use ZipWith[MailTemplate, BigDecimal, User, Mail] to zip MailTemplate, BigDecimal, User to Mail, mailService.fillBody can be used.
-    */
 
+                    ---> only language ---> mailService.template --->
+    User as a input ---> only id ---------> charge -----------------> Mail as a output
+                    ------------------------------------------------>
+
+    Use Broadcast to split user data to three streams. map on Broadcast is allowed.
+    Use ZipWith[MailTemplate, BigDecimal, User, Mail] to zip MailTemplate, BigDecimal, User to Mail, mailService.fillBody can be used.
+    */
+  //@formatter:on
   private def calculate: Flow[User, Mail, NotUsed] = Flow.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] =>
     import GraphDSL.Implicits._
 
-    val user = builder.add(Broadcast[User](3))
-    val zip = builder.add(ZipWith[MailTemplate, BigDecimal, User, Mail](mailService.fillBody))
+    val user = ???
+    val zip = ???
 
     //@formatter:off
-      user.map(_.language)  ~> mailService.template    ~> zip.in0
-      user.map(_.id)        ~> charge      ~> zip.in1
-      user                  ~>                zip.in2
+    //Fancy graph....
     //@formatter:on
 
     FlowShape(user.in, zip.out)
@@ -46,7 +45,7 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
     *
     * @return
     */
-  def sendSummary = Source.tick(10 second, 30 seconds, ())
+  def sendSummary = Source.single(()) // <-- replace
     .mapConcat(_ => userRepository.find)
     .via(calculate)
     .via(mailService.send)

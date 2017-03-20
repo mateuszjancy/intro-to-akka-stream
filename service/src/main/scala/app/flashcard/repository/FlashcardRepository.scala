@@ -19,7 +19,7 @@ class FlashcardRepository(db: DB[Flashcard]) {
     *
     * @return
     */
-  def find: Source[Flashcard, NotUsed] = Source.fromFuture(db.find).mapConcat(identity)
+  def find: Source[Flashcard, NotUsed] = ???
 
   /**
     * Flow need to be parametrized with input type. Flow represents set of collection like operations.
@@ -27,9 +27,9 @@ class FlashcardRepository(db: DB[Flashcard]) {
     *
     * @return
     */
-  def add: Flow[Flashcard, Flashcard, NotUsed] = Flow[Flashcard].mapAsync(parallelism)(db.insert)
+  def add: Flow[Flashcard, Flashcard, NotUsed] = ???
 
-  def get(word: String): Source[Flashcard, NotUsed] = Source.fromFuture(db.get(el => el.word == word))
+  def get(word: String): Source[Flashcard, NotUsed] = ???
 }
 
 object FlashcardRepository {

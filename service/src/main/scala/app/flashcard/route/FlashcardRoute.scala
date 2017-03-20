@@ -31,7 +31,7 @@ class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJs
     */
   def create = post {
     entity(asSourceOf[NewFlashcard]) { newFlashcard =>
-      val response: Source[Flashcard, NotUsed] = newFlashcard.map(_.toFlashcard).via(flashcardRepository.add)
+      val response: Source[Flashcard, NotUsed] = ???
       complete(response)
     }
   }
@@ -42,7 +42,7 @@ class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJs
     * Sent all items to client.
     */
   def find = get {
-    val response: Source[Flashcard, NotUsed] = flashcardRepository.find
+    val response: Source[Flashcard, NotUsed] = ???
     complete(response)
   }
 
