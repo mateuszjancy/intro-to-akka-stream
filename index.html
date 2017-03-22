@@ -33,11 +33,8 @@
       ##    ##    ##   ##   ##       ######### ##     ## 
 ##    ##    ##    ##    ##  ##       ##     ## ##     ## 
  ######     ##    ##     ## ######## ##     ## ##     ## 
+						  2.4.16
 </pre>
-
-* Quick Start
-* Flow, Exercise
-* Graph, Exercise
 
 ---
 ## Plan
@@ -47,12 +44,18 @@ We are going to:
 * With this knowledge we will implement application repositories and routes.
 * Caffe break.
 * Learn basics of **graphs**.
-* Implement simple graph and sheduled processing.
+* Implement together simple graph and sheduled processing.
 
 ---
 
-## Application curls
+## Application
+Simple flashcard application which allows us to:
+* Add flashcard
+* Read all flashcards
+* Pick questions
+* Answer selected question
 
+All application endpoints will be available via:
 * Add flashcard
 ```
 curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '[{"word": "czesc", "tranlation": "hi"}, {"word": "pa", "tranlation": "bye"}]' "http://localhost:8090/flashcard"
@@ -69,8 +72,26 @@ curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/quiz/question"
 ```
 curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/quiz/answer?word=czesc&translation=hi"
 ```
+
 ---
-## Quick Start
+
+## Streams are
+* Designed for composition.
+* Allows to abstract processing steps.
+* Standarization of processing.
+* Efficiently in case of heavy load.
+* ???
+
+---
+
+## Are streams
+* **Locking too complex?**
+* **Hard to learn?**
+
+Lets checkt that!
+
+---
+## Akka streams are
 Akka Streams following the concept from RXScala but with different naming convention and with more complete and ready to use implementation and ecosystem.
 * Building blocks: Source, Flow, Sink, Graph
 * Additional features: Back-pressure, Failure, Error handling...
@@ -93,13 +114,15 @@ Akka Streams following the concept from RXScala but with different naming conven
 
 * Fluent interface.
 * Looks like collections API.
-* Useful for most use cases.
+* Best choice in most cases.
 * Base abstractions.
 * Easy to use.
 
+_Let's skip error handling, back-pressure and many other for now and let's focus on basic blocks._
+
 ---
 
-## Flow reusable pieces
+## Flow
 
 ```scala
 implicit val system = ActorSystem("QuickStart")
@@ -108,11 +131,10 @@ implicit val materializer = ActorMaterializer()
 
 * Streams are built **on top of akka** and need to have **actor system**.
 * In order to **run any stream** akka.stream need to **materialize some number of actors**
-* Api from time to time need to have **materializer** in **implicit** scope.
 
 ---
 
-## Flow reusable pieces
+## Flow
 
 ```scala
 val source: Source[Int, NotUsed] =
@@ -122,7 +144,7 @@ val source: Source[Int, NotUsed] =
 * Responsible for emitting values for future processing.
 * Is inactive after declared.
 * In order to get those numbers out we have to run it.
-* Can be built from **future**, **iterable**... and many more.
+* Thanks of dedicated **Stream.from** methods can be built from **future**, **iterable**... .
 
 ---
 
@@ -134,8 +156,8 @@ val flow: Flow[Int, Int, NotUsed] =
 ```
 
 * Basic building block.
-* Can aggregate map, filter... operation in named variable.
-* Easy to reuse.
+* Can aggregate map, filter... .
+* Designed to be reused.
 * Can be seen as a part of service layer.
 
 ---
