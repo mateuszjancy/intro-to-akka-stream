@@ -51,8 +51,8 @@ class FlashcardRoute(flashcardRepository: FlashcardRepository) extends DefaultJs
 
 object FlashcardRoute {
 
-  case class NewFlashcard(word: String, tranlation: String) {
-    def toFlashcard = Flashcard(word, tranlation)
+  case class NewFlashcard(word: String, translation: String) {
+    def toFlashcard = Flashcard(word, translation)
   }
 
   def apply(flashcardRepository: FlashcardRepository): FlashcardRoute =
