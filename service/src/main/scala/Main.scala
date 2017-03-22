@@ -11,11 +11,12 @@ object Main extends App with Context {
 
   implicit val executionContext = actorSystem.dispatcher
 
-  userService.sendSummary.run()
+  //TODO: Uncomment
+  //userService.sendSummary.run()
 
   val bindingFuture = Http().bindAndHandle(quizRoute.routes ~ flashcardRoute.routes, "localhost", 8090)
 
-  println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
+  println(s"Server online at http://localhost:8090/\nPress RETURN to stop...")
   StdIn.readLine()
   bindingFuture
     .flatMap(_.unbind())

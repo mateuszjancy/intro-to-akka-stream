@@ -26,7 +26,10 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
     Use ZipWith[MailTemplate, BigDecimal, User, Mail] to zip MailTemplate, BigDecimal, User to Mail, mailService.fillBody can be used.
     */
   //@formatter:on
-  private def calculate: Flow[User, Mail, NotUsed] = Flow.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] =>
+
+  private def calculate: Flow[User, Mail, NotUsed] = ???
+  //TODO: Uncomment
+  /*Flow.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] =>
     import GraphDSL.Implicits._
 
     val user = ???
@@ -37,7 +40,7 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
     //@formatter:on
 
     FlowShape(user.in, zip.out)
-  })
+  })*/
 
 
   /**
@@ -45,11 +48,13 @@ class UserService(userRepository: UserRepository, mailService: MailService) {
     *
     * @return
     */
-  def sendSummary = Source.single(()) // <-- replace
+  def sendSummary = ???
+  //TODO: Uncomment
+    /*Source.???
     .mapConcat(_ => userRepository.find)
     .via(calculate)
     .via(mailService.send)
-    .to(Sink.ignore)
+    .to(Sink.ignore)*/
 
 }
 
