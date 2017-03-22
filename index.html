@@ -100,6 +100,21 @@ Akka Streams following the concept from RXScala but with different naming conven
 
 ---
 
+## Design Principles behind Akka Streams
+
+* No dead letter office
+* Oriented to comparable components
+* Interpretation with other Reactive Streams implementations
+* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
+
+---
+
+## Stream ordering
+
+_In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)
+
+---
+
 ## Flow
 
 <pre>                                                                                    
@@ -144,7 +159,9 @@ val source: Source[Int, NotUsed] =
 * Responsible for emitting values for future processing.
 * Is inactive after declared.
 * In order to get those numbers out we have to run it.
-* Thanks of dedicated **Stream.from** methods can be built from **future**, **iterable**... .
+* Thanks of dedicated **Stream.from** methods can be built from **future**, **iterable**, **publisher**... .
+
+_We will skip NotUsed in this presentation more details can be found in [documentation](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_Materialization)_
 
 ---
 
@@ -245,32 +262,6 @@ val result: Future[Int] = runnableGraph.run()
 
 ---
 
-## Design Principles behind Akka Streams
-
-* No dead letter office
-* Oriented to comparable components
-* Interpretation with other Reactive Streams implementations
-* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
-
----
-
-## The difference between Error and Failure
-
-* Error is accessible within the stream as a normal data element.
-* Failure means that the stream itself has failed and is collapsing
-* Good idea is to handle business errors by Either instead playing with akka.stream stuff.
-* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html#The_difference_between_Error_and_Failure)
-
----
-
-## Stream ordering
-
-_In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)
-
----
-
-## Flow reusable pieces
-
 <pre>
 
 ##      ##    ###    ##    ## ########           
@@ -309,7 +300,7 @@ Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/s
 </pre>
 
 * Designed for more complex processing requirements.
-* Look more complex at first time.
+* Look too complex at the first time.
 
 ---
 
@@ -324,8 +315,8 @@ xxx.fromGraph(GraphDSL.create() { implicit builder =>
 ```
 
 * **builder** allows us to build our fancy graphs.
-* **GraphDSL.Implicits._** provides nice DSL.
-* xxx.fromGraph because graph can by lifted into **Sources** and **Flows**.
+* **GraphDSL.Implicits._** provides nice DSL like "~>" operator .
+* xxx.fromGraph because graph can have shape of **Sources** and **Flows**.
 
 ---
 
@@ -343,12 +334,14 @@ val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.B
   val f1, f2, f3, f4 = Flow[Int].map(_ + 10)
 
   in ~> f1 ~> bcast ~> f2 ~> merge ~> f3 ~> out
-  bcast ~> f4 ~> merge
+  	      bcast ~> f4 ~> merge
+	      
   ClosedShape
 })
 ```
 
-* End to end stream which can be started.
+* Closed stream. 
+* Ready to run.
 
 ---
 
@@ -360,18 +353,6 @@ Source.fromGraph(GraphDSL.create() { implicit b =>
   ...
   SourceShape(out)
 })
-```
-
----
-
-## Graph with FlowShape
-
-```scala
-Flow.fromGraph(GraphDSL.create() { implicit b =>
-    import GraphDSL.Implicits._
- 	...
- 	FlowShape(in, out)
-  })
 ```
 
 ---
@@ -427,9 +408,9 @@ There is [simplified API](http://doc.akka.io/docs/akka/2.4.17/scala/stream/strea
 
 * Nice way of representing abstraction.
 * Simple to use.
-* Is it easy to read?
+* Are they easy to read?
 * Is boilerplate code painful?
-* How to rewrite from for expression.
+* For expression equivalent for complex processing.
 
 ```scala
  for {
@@ -454,23 +435,22 @@ Example in: app.flashcard.service.UserService
 
 ---
 
-## Remarks
+## Remarks +
 
 * Super as a alternative for any scheduled activity
 * Nice compassable blocks
 * Easy to test
 * Clear processing blocks
-* In my opinion its wrong to say that most of problems can be rewritten with futures and for comprehension
-* I general easy to use
-* Nice integrations with akka.http
+* Easy to use
+* Nice integration with akka.http
 
 ---
 
-## Remarks
+## Remarks -
 
-* Redundant complexity in some cases
-* Hard to design application with clear separation of logic and framework (as it was in spring...)
-* Graph API can be useful but in very complex processing
+* Redundant complexity.
+* Hard to design application with clear separation of logic and framework.
+* Graph API can become overkill in simple cases.
 
 ---
 
