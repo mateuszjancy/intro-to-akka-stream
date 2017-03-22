@@ -1,4 +1,4 @@
-name := "akka-http-stub"
+name := "service"
 
 version := "1.0"
 
