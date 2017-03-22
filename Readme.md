@@ -14,11 +14,8 @@
       ##    ##    ##   ##   ##       ######### ##     ## 
 ##    ##    ##    ##    ##  ##       ##     ## ##     ## 
  ######     ##    ##     ## ######## ##     ## ##     ## 
+						  2.4.16
 </pre>
-
-* Quick Start
-* Flow, Exercise
-* Graph, Exercise
 
 ---
 ## Plan
@@ -28,15 +25,21 @@ We are going to:
 * With this knowledge we will implement application repositories and routes.
 * Caffe break.
 * Learn basics of **graphs**.
-* Implement simple graph and sheduled processing.
+* Implement together simple graph and scheduled processing.
 
 ---
 
-## Application curls
+## Application
+Simple flashcard application which allows us to:
+* Add flashcard
+* Read all flashcards
+* Pick questions
+* Answer selected question
 
+All application endpoints will be available via:
 * Add flashcard
 ```
-curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '[{"word": "czesc", "tranlation": "hi"}, {"word": "pa", "tranlation": "bye"}]' "http://localhost:8090/flashcard"
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '[{"word": "czesc", "translation": "hi"}, {"word": "pa", "translation": "bye"}]' "http://localhost:8090/flashcard"
 ```
 * Get flashcard
 ```
@@ -50,13 +53,46 @@ curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/quiz/question"
 ```
 curl -X GET -H "Cache-Control: no-cache" "http://localhost:8090/quiz/answer?word=czesc&translation=hi"
 ```
+
 ---
-## Quick Start
+
+## Streams are
+* Designed for composition.
+* Allows to abstract processing steps.
+* Standarization of processing.
+* Efficiently in case of heavy load.
+* ???
+
+---
+
+## Are streams
+* **Locking too complex?**
+* **Hard to learn?**
+
+Lets checkt that!
+
+---
+## Akka streams are
 Akka Streams following the concept from RXScala but with different naming convention and with more complete and ready to use implementation and ecosystem.
 * Building blocks: Source, Flow, Sink, Graph
 * Additional features: Back-pressure, Failure, Error handling...
 * Akka HTTP integration (Client and Server)
 * Building block are immutable and can be shared.
+
+---
+
+## Design Principles behind Akka Streams
+
+* No dead letter office
+* Oriented to comparable components
+* Interpretation with other Reactive Streams implementations
+* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
+
+---
+
+## Stream ordering
+
+_In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)
 
 ---
 
@@ -74,13 +110,15 @@ Akka Streams following the concept from RXScala but with different naming conven
 
 * Fluent interface.
 * Looks like collections API.
-* Useful for most use cases.
+* Best choice in most cases.
 * Base abstractions.
 * Easy to use.
 
+_Let's skip error handling, back-pressure and many other for now and let's focus on basic blocks._
+
 ---
 
-## Flow reusable pieces
+## Flow
 
 ```scala
 implicit val system = ActorSystem("QuickStart")
@@ -89,11 +127,10 @@ implicit val materializer = ActorMaterializer()
 
 * Streams are built **on top of akka** and need to have **actor system**.
 * In order to **run any stream** akka.stream need to **materialize some number of actors**
-* Api from time to time need to have **materializer** in **implicit** scope.
 
 ---
 
-## Flow reusable pieces
+## Flow
 
 ```scala
 val source: Source[Int, NotUsed] =
@@ -103,7 +140,9 @@ val source: Source[Int, NotUsed] =
 * Responsible for emitting values for future processing.
 * Is inactive after declared.
 * In order to get those numbers out we have to run it.
-* Can be built from **future**, **iterable**... and many more.
+* Thanks of dedicated **Stream.from** methods can be built from **future**, **iterable**, **publisher**... .
+
+_We will skip NotUsed in this presentation more details can be found in [documentation](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_Materialization)_
 
 ---
 
@@ -115,8 +154,8 @@ val flow: Flow[Int, Int, NotUsed] =
 ```
 
 * Basic building block.
-* Can aggregate map, filter... operation in named variable.
-* Easy to reuse.
+* Can aggregate map, filter... .
+* Designed to be reused.
 * Can be seen as a part of service layer.
 
 ---
@@ -204,32 +243,6 @@ val result: Future[Int] = runnableGraph.run()
 
 ---
 
-## Design Principles behind Akka Streams
-
-* No dead letter office
-* Oriented to comparable components
-* Interpretation with other Reactive Streams implementations
-* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html)
-
----
-
-## The difference between Error and Failure
-
-* Error is accessible within the stream as a normal data element.
-* Failure means that the stream itself has failed and is collapsing
-* Good idea is to handle business errors by Either instead playing with akka.stream stuff.
-* More in [documentation](http://doc.akka.io/docs/akka/2.4.17/general/stream/stream-design.html#The_difference_between_Error_and_Failure)
-
----
-
-## Stream ordering
-
-_In Akka Streams almost all computation stages preserve input order of elements. This means that if inputs {IA1,IA2,...,IAn} "cause" outputs {OA1,OA2,...,OAk} and inputs {IB1,IB2,...,IBm} "cause" outputs {OB1,OB2,...,OBl} and all of IAi happened before all IBi then OAi happens before OBi._ [doc](http://doc.akka.io/docs/akka/2.4/scala/stream/stream-flows-and-basics.html#Stream_ordering)
-
----
-
-## Flow reusable pieces
-
 <pre>
 
 ##      ##    ###    ##    ## ########           
@@ -268,7 +281,7 @@ Read [Basics and working with Flows](http://doc.akka.io/docs/akka/2.4.17/scala/s
 </pre>
 
 * Designed for more complex processing requirements.
-* Look more complex at first time.
+* Look too complex at the first time.
 
 ---
 
@@ -283,8 +296,8 @@ xxx.fromGraph(GraphDSL.create() { implicit builder =>
 ```
 
 * **builder** allows us to build our fancy graphs.
-* **GraphDSL.Implicits._** provides nice DSL.
-* xxx.fromGraph because graph can by lifted into **Sources** and **Flows**.
+* **GraphDSL.Implicits._** provides nice DSL like "~>" operator .
+* xxx.fromGraph because graph can have shape of **Sources** and **Flows**.
 
 ---
 
@@ -302,12 +315,14 @@ val g = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder: GraphDSL.B
   val f1, f2, f3, f4 = Flow[Int].map(_ + 10)
 
   in ~> f1 ~> bcast ~> f2 ~> merge ~> f3 ~> out
-  bcast ~> f4 ~> merge
+  	      bcast ~> f4 ~> merge
+	      
   ClosedShape
 })
 ```
 
-* End to end stream which can be started.
+* Closed stream. 
+* Ready to run.
 
 ---
 
@@ -319,18 +334,6 @@ Source.fromGraph(GraphDSL.create() { implicit b =>
   ...
   SourceShape(out)
 })
-```
-
----
-
-## Graph with FlowShape
-
-```scala
-Flow.fromGraph(GraphDSL.create() { implicit b =>
-    import GraphDSL.Implicits._
- 	...
- 	FlowShape(in, out)
-  })
 ```
 
 ---
@@ -386,9 +389,9 @@ There is [simplified API](http://doc.akka.io/docs/akka/2.4.17/scala/stream/strea
 
 * Nice way of representing abstraction.
 * Simple to use.
-* Is it easy to read?
+* Are they easy to read?
 * Is boilerplate code painful?
-* How to rewrite from for expression.
+* For expression equivalent for complex processing.
 
 ```scala
  for {
@@ -413,23 +416,22 @@ Example in: app.flashcard.service.UserService
 
 ---
 
-## Remarks
+## Remarks +
 
 * Super as a alternative for any scheduled activity
 * Nice compassable blocks
 * Easy to test
 * Clear processing blocks
-* In my opinion its wrong to say that most of problems can be rewritten with futures and for comprehension
-* I general easy to use
-* Nice integrations with akka.http
+* Easy to use
+* Nice integration with akka.http
 
 ---
 
-## Remarks
+## Remarks -
 
-* Redundant complexity in some cases
-* Hard to design application with clear separation of logic and framework (as it was in spring...)
-* Graph API can be useful but in very complex processing
+* Redundant complexity.
+* Hard to design application with clear separation of logic and framework.
+* Graph API can become overkill in simple cases.
 
 ---
 
